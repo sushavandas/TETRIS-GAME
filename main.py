@@ -111,5 +111,52 @@ class Tetris:
                     if p in self.nextBlock.image():
                         pygame.draw.rect(screen, shapeColors[self.nextBlock.color],(sx + j*30, sy + i*30, 30, 30), 0)
 
+#Moves the block down by a unit
+    def go_down(self):
+        self.block.y += 1
+        if self.intersects():
+            self.block.y -= 1
+            self.freeze()
+    
+    #Moves the block to the bottom
+    def moveBottom(self):
+        while not self.intersects():
+            self.block.y += 1
+        self.block.y -= 1
+        self.freeze()
+
+    #Moves the block down by a unit
+    def moveDown(self):
+        self.block.y += 1
+        if self.intersects():
+            self.block.y -= 1
+            self.freeze()
+
+    # This function runs once the block reaches the bottom. 
+    def freeze(self):
+        for i in range(4):
+            for j in range(4):
+                if i * 4 + j in self.block.image():
+                    self.field[i + self.block.y][j + self.block.x] = self.block.color
+        self.break_lines() #Checking if any row is formed
+        self.block=self.nextBlock
+        self.next_block() #Creating a new block
+        if self.intersects(): #If blocks touch the top of the board, then ending the game by setting status as gameover
+            self.state = "gameover"
+    #This function moves the block horizontally
+    def moveHoriz(self, dx):
+        old_x = self.block.x
+        self.block.x += dx
+        if self.intersects():
+            self.block.x = old_x
+
+    #This function rotates the block 
+    def rotate(self):
+        old_rotation = self.block.rotation
+        self.block.rotate()
+        if self.intersects():
+            self.block.rotation = old_rotation
+
+pygame.font.init()
 
 
