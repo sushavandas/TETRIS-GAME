@@ -13,3 +13,30 @@ shapes = [
     ]
 #Colors of the blocks
 shapeColors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
+
+# GLOBALS VARS
+width = 700
+height = 600
+gameWidth = 100  # meaning 300 // 10 = 30 width per block
+gameHeight = 400  # meaning 600 // 20 = 20 height per blo ck
+blockSize = 20
+ 
+topLeft_x = (width - gameWidth) // 2
+topLeft_y = height - gameHeight - 50
+
+class Block:
+    x = 0
+    y = 0
+    n = 0
+    def __init__(self, x, y,n):
+        self.x = x
+        self.y = y
+        self.type = n
+        self.color = n
+        self.rotation = 0
+    def image(self):
+        return shapes[self.type][self.rotation]
+
+    def rotate(self):
+        self.rotation = (self.rotation + 1) % len(shapes[self.type])
+
