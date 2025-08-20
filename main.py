@@ -82,4 +82,34 @@ class Tetris:
                         intersection = True
         return intersection
 
+#Checks if a row is formed and destroys that line
+    def break_lines(self):
+        lines = 0
+        for i in range(1, self.height):
+            zeros = 0
+            for j in range(self.width):
+                if self.field[i][j] == 0:
+                    zeros += 1
+            if zeros == 0:
+                lines += 1
+                for i1 in range(i, 1, -1):
+                    for j in range(self.width):
+                        self.field[i1][j] = self.field[i1 - 1][j]
+        self.score += lines ** 2
+
+    def draw_next_block(self,screen):
+    
+        font = pygame.font.SysFont("Calibri", 30)
+        label = font.render("Next Shape", 1, (128,128,128))
+
+        sx = topLeft_x + gameWidth + 50
+        sy = topLeft_y + gameHeight/2 - 100
+        format = self.nextBlock.image()
+        for i in range(4):
+                for j in range(4):
+                    p = i * 4 + j
+                    if p in self.nextBlock.image():
+                        pygame.draw.rect(screen, shapeColors[self.nextBlock.color],(sx + j*30, sy + i*30, 30, 30), 0)
+
+
 
