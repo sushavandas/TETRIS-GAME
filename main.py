@@ -63,4 +63,23 @@ class Tetris:
                 new_line.append(0)
             self.field.append(new_line)
 
+#Creates a new block
+    def new_block(self):
+        self.block = Block(3, 0,random.randint(0, len(shapes) - 1))
+                           
+    def next_block(self):
+        self.nextBlock=Block(3,0,random.randint(0, len(shapes) - 1))
+    #Checks if the blocks touch the top of the board
+    def intersects(self):
+        intersection = False
+        for i in range(4):
+            for j in range(4):
+                if i * 4 + j in self.block.image():
+                    if i + self.block.y > self.height - 1 or \
+                            j + self.block.x > self.width - 1 or \
+                            j + self.block.x < 0 or \
+                            self.field[i + self.block.y][j + self.block.x] > 0:
+                        intersection = True
+        return intersection
+
 
