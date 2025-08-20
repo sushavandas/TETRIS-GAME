@@ -241,3 +241,21 @@ def startGame():
         pygame.display.flip()
         clock.tick(fps)
 
+
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Tetris by DataFlair")
+run = True
+while run:
+    screen.fill((16, 57, 34 ))
+    font = pygame.font.SysFont("Calibri", 70, bold=True)
+    label = font.render("Press any key to begin!", True, '#FFFFFF')
+
+    screen.blit(label, (10, 300 ))
+    pygame.display.update()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.KEYDOWN:
+            startGame()
+pygame.quit()
+
